@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+<!-- @dsCard group="Components" name="Cards — Biomarker Row" subtitle="Horizontal full-width biomarker rows" viewport="700x280" --><html><head><meta charset="utf-8" />
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  body { margin: 0; padding: 24px; background: var(--color-cream); background-image: var(--texture-cream); background-size: cover; }
+</style></head><body>
+<style>
+  .bio { background:#fff; border:1px solid var(--color-border); border-radius: var(--radius-subtle); padding: 16px 20px; box-shadow: var(--shadow-1); display: flex; align-items: center; justify-content: space-between; position: relative; overflow: hidden; }
+  .bio + .bio { margin-top: 10px; }
+  .bar { position:absolute; left:0; top:0; bottom:0; width: 3px; }
+  .lbl { font: var(--type-label); text-transform: uppercase; letter-spacing: 0.08em; color: var(--fg-3); }
+  .pill { display:inline-flex; height: 22px; padding: 0 10px; border-radius: 50px; font: 500 10px/1 'DM Mono',monospace; letter-spacing: 0.08em; text-transform: uppercase; align-items:center; }
+  .pill-low { background:#D8F3DC; color: #1F6B43; }
+  .pill-mod { background:#FDF0DF; color:#C97D2E; }
+  .pill-elev { background:#FDF0EF; color:#C0392B; }
+</style>
+<div class="bio">
+  <div class="bar" style="background: #52B788;"></div>
+  <div style="padding-left: 8px;">
+    <div style="font: var(--type-body-md); color: var(--fg-1);">Oxidative Stress</div>
+    <div style="font: var(--type-body-sm); color: var(--fg-3);">Within optimal range · last scan 2d ago</div>
+  </div>
+  <div style="display: flex; align-items: center; gap: 14px;">
+    <div style="font: 400 22px 'DM Serif Display',serif;">0.18</div>
+    <span class="pill pill-low">Optimal</span>
+  </div>
+</div>
+<div class="bio">
+  <div class="bar" style="background: #C97D2E;"></div>
+  <div style="padding-left: 8px;">
+    <div style="font: var(--type-body-md); color: var(--fg-1);">Inflammation</div>
+    <div style="font: var(--type-body-sm); color: var(--fg-3);">Slightly elevated · recheck in 30 days</div>
+  </div>
+  <div style="display: flex; align-items: center; gap: 14px;">
+    <div style="font: 400 22px 'DM Serif Display',serif;">0.42</div>
+    <span class="pill pill-mod">Moderate</span>
+  </div>
+</div>
+<div class="bio">
+  <div class="bar" style="background: #C0392B;"></div>
+  <div style="padding-left: 8px;">
+    <div style="font: var(--type-body-md); color: var(--fg-1);">Neurodegeneration</div>
+    <div style="font: var(--type-body-sm); color: var(--fg-3);">Consult a specialist</div>
+  </div>
+  <div style="display: flex; align-items: center; gap: 14px;">
+    <div style="font: 400 22px 'DM Serif Display',serif;">0.61</div>
+    <span class="pill pill-elev">Elevated</span>
+  </div>
+</div>
+</body></html>

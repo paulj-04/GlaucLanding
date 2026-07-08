@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<!-- @dsCard group="UI Kit — Mobile App" name="UI Kit — Mobile App" subtitle="5 screens · interactive scan flow" viewport="1320x950" -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Glauc — Mobile App</title>
+<link rel="stylesheet" href="../../colors_and_type.css" />
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<style>
+  html, body { margin: 0; padding: 0; background: var(--color-cream); background-image: var(--texture-cream); background-size: cover; min-height: 100vh; }
+  body { display: flex; align-items: center; justify-content: center; padding: 40px 24px; gap: 40px; flex-wrap: wrap; }
+  .frame-label {
+    margin-top: 16px; text-align: center;
+    font: 500 11px/1 'DM Sans', sans-serif;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--color-stone);
+  }
+  .device-col { display: flex; flex-direction: column; align-items: center; }
+</style>
+</head>
+<body>
+
+<div id="root"></div>
+
+<script type="text/babel" src="ios-frame.jsx"></script>
+<script type="text/babel" src="Components.jsx"></script>
+<script type="text/babel" src="Screens.jsx"></script>
+
+<script type="text/babel" data-presets="env,react">
+const { useState } = React;
+
+function PhoneApp() {
+  const [tab, setTab] = useState('home');
+  const [overlay, setOverlay] = useState(null); // 'capture' | 'results' | null
+
+  const screen = (() => {
+    if (overlay === 'capture') {
+      return <CaptureScreen onCancel={() => setOverlay(null)} onCapture={() => setOverlay('results')} />;
+    }
+    if (overlay === 'results') {
+      return <ResultsScreen onBack={() => setOverlay(null)} />;
+    }
+    if (tab === 'home')    return <HomeScreen onCheck={() => setOverlay('capture')} onResult={() => setOverlay('results')} />;
+    if (tab === 'check')   return <CaptureScreen onCancel={() => setTab('home')} onCapture={() => { setTab('home'); setOverlay('results'); }} />;
+    if (tab === 'history') return <HistoryScreen />;
+    if (tab === 'profile') return <ProfileScreen />;
+  })();
+
+  // hide bottom nav when in capture (full-bleed) or results (we still want it, but capture overlay hides)
+  const showNav = overlay !== 'capture' && tab !== 'check';
+
+  return (
+    <IOSDevice width={390} height={812} dark={overlay === 'capture' || tab === 'check'}>
+      <div style={{ height: '100%', display: 'flex', flexDirection: 'column', paddingTop: 50 }}>
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+          {screen}
+        </div>
+        {showNav && <BottomNav active={tab} onChange={(t) => { setOverlay(null); setTab(t); }} />}
+        <div style={{ height: 34 }} />
+      </div>
+    </IOSDevice>
+  );
+}
+
+function Kit() {
+  // show three core screens side by side, plus the interactive one
+  return (
+    <>
+      <div className="device-col">
+        <IOSDevice width={390} height={812}>
+          <div style={{ height: '100%', display: 'flex', flexDirection: 'column', paddingTop: 50 }}>
+            <HomeScreen onCheck={() => {}} onResult={() => {}} />
+            <BottomNav active="home" onChange={() => {}} />
+            <div style={{ height: 34 }} />
+          </div>
+        </IOSDevice>
+        <div className="frame-label">01 · Home</div>
+      </div>
+      <div className="device-col">
+        <PhoneApp />
+        <div className="frame-label">02 · Interactive · tap "Start scan"</div>
+      </div>
+      <div className="device-col">
+        <IOSDevice width={390} height={812}>
+          <div style={{ height: '100%', display: 'flex', flexDirection: 'column', paddingTop: 50 }}>
+            <ResultsScreen onBack={() => {}} />
+            <BottomNav active="home" onChange={() => {}} />
+            <div style={{ height: 34 }} />
+          </div>
+        </IOSDevice>
+        <div className="frame-label">03 · Results</div>
+      </div>
+      <div className="device-col">
+        <IOSDevice width={390} height={812}>
+          <div style={{ height: '100%', display: 'flex', flexDirection: 'column', paddingTop: 50 }}>
+            <HistoryScreen />
+            <BottomNav active="history" onChange={() => {}} />
+            <div style={{ height: 34 }} />
+          </div>
+        </IOSDevice>
+        <div className="frame-label">04 · History</div>
+      </div>
+      <div className="device-col">
+        <IOSDevice width={390} height={812}>
+          <div style={{ height: '100%', display: 'flex', flexDirection: 'column', paddingTop: 50 }}>
+            <ProfileScreen />
+            <BottomNav active="profile" onChange={() => {}} />
+            <div style={{ height: 34 }} />
+          </div>
+        </IOSDevice>
+        <div className="frame-label">05 · Profile</div>
+      </div>
+    </>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<Kit />);
+</script>
+
+</body>
+</html>

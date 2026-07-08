@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<!-- @dsCard group="UI Kit — Clinical Dashboard" name="UI Kit — Clinical Dashboard" subtitle="Web dashboard overview" viewport="1440x980" -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Glauc — Clinical Dashboard</title>
+<link rel="stylesheet" href="../../colors_and_type.css" />
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<style>
+  html, body { margin: 0; padding: 0; background: var(--color-cream); min-height: 100vh; }
+  #root { min-height: 100vh; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" src="Components.jsx"></script>
+
+<script type="text/babel" data-presets="env,react">
+const { useState } = React;
+
+const patients = [
+  { id: 'glc_8f3a9c', name: 'Sarvesh Ramakrishnan', initials: 'SR', bg: '#2D6A4F', chrono: 36, bio: 31.2, delta: -4.8, lastScan: 'Today',     flag: 'Neuro', flagColor: { bg: CC.redLight, fg: CC.red } },
+  { id: 'glc_2b1402', name: 'Maya Liu',             initials: 'ML', bg: '#1A3A2A', chrono: 52, bio: 49.4, delta: -2.6, lastScan: '2d ago',    flag: 'Optimal', flagColor: { bg: CC.mist, fg: '#1F6B43' } },
+  { id: 'glc_4e9b71', name: 'Daniel Okafor',        initials: 'DO', bg: '#52B788', chrono: 41, bio: 44.6, delta:  3.6, lastScan: '4d ago',    flag: 'Inflam', flagColor: { bg: CC.amberLight, fg: CC.amber } },
+  { id: 'glc_5c0aa3', name: 'Elena Vasquez',        initials: 'EV', bg: '#C97D2E', chrono: 29, bio: 27.8, delta: -1.2, lastScan: '1w ago',    flag: 'Optimal', flagColor: { bg: CC.mist, fg: '#1F6B43' } },
+  { id: 'glc_7d8e22', name: 'Jamal Whitford',       initials: 'JW', bg: '#A51C30', chrono: 64, bio: 67.1, delta:  3.1, lastScan: '2w ago',    flag: 'Cardio', flagColor: { bg: CC.amberLight, fg: CC.amber } },
+  { id: 'glc_9af110', name: 'Priya Mehta',          initials: 'PM', bg: '#718096', chrono: 47, bio: 51.8, delta:  4.8, lastScan: '3w ago',    flag: 'Metab', flagColor: { bg: CC.redLight, fg: CC.red } },
+];
+
+const trend = [
+  { label: 'W1',  bio: 34.8, cohort: 36.0 },
+  { label: 'W3',  bio: 34.1, cohort: 36.1 },
+  { label: 'W5',  bio: 33.4, cohort: 36.0 },
+  { label: 'W7',  bio: 32.0, cohort: 35.9 },
+  { label: 'W9',  bio: 32.1, cohort: 35.8 },
+  { label: 'W11', bio: 31.6, cohort: 35.8 },
+  { label: 'W13', bio: 31.2, cohort: 35.7 },
+];
+
+const distribution = [
+  { label: 'Optimal',  value: 412, color: CC.mint,    fg: '#fff' },
+  { label: 'Moderate', value: 218, color: CC.amber,   fg: '#fff' },
+  { label: 'Elevated', value:  64, color: CC.red,     fg: '#fff' },
+  { label: 'Critical', value:  11, color: CC.crimson, fg: '#fff' },
+];
+
+const radar = [
+  { label: 'Ocular',         value: 0.84 },
+  { label: 'Metabolic',      value: 0.62 },
+  { label: 'Cardiovascular', value: 0.71 },
+  { label: 'Neurological',   value: 0.48 },
+  { label: 'Aging',          value: 0.86 },
+  { label: 'Systemic',       value: 0.74 },
+];
+
+function Dashboard() {
+  return (
+    <div style={{ display: 'flex', height: '100vh', background: CC.cream }}>
+      <Sidebar active="overview" />
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0, overflow: 'auto' }}>
+        <TopBar />
+
+        <main style={{
+          padding: '28px 32px 40px', flex: 1,
+          background: CC.cream,
+          backgroundImage: "url('../../assets/texture-cream.jpg')",
+          backgroundSize: 'cover',
+        }}>
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: 16, marginBottom: 6 }}>
+            <h2 style={{ fontFamily: CFONT.serif, fontSize: 32, color: CC.ink, margin: 0 }}>Overview</h2>
+            <span style={{ fontFamily: CFONT.sans, fontSize: 13, color: CC.stone }}>
+              <em>705 patients</em> · last 30 days
+            </span>
+          </div>
+          <div style={{ fontFamily: CFONT.sans, fontSize: 14, color: CC.slate, marginBottom: 28 }}>
+            Cohort biological age is trending <em style={{ fontFamily: CFONT.serif, color: '#1F6B43' }}>3.2 years younger</em> than chronological average.
+          </div>
+
+          {/* KPI row */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16, marginBottom: 28 }}>
+            <MetricCard label="Total scans" value="2,418" unit="" sub="this quarter"
+              trend={{ dir: 'up', text: '+18%' }} />
+            <MetricCard label="Avg. bio age" value="32.6" unit="yr" sub="vs chrono 35.8"
+              trend={{ dir: 'down', text: '−3.2 yr' }} />
+            <MetricCard label="Flagged patients" value="75" unit="" sub="moderate or above"
+              trend={{ dir: 'down', text: '−6 vs Q1' }} />
+            <MetricCard label="Critical alerts" value="11" unit="" sub="awaiting review"
+              trend={{ dir: 'up', text: '+2' }} />
+          </div>
+
+          {/* Two-column section: distribution + trend */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 28 }}>
+            <div style={{ background: CC.white, border: `1px solid ${CC.border}`, borderRadius: 4, padding: 22 }}>
+              <div style={{ fontFamily: CFONT.sans, fontSize: 11, fontWeight: 500, letterSpacing: '0.08em', textTransform: 'uppercase', color: CC.stone, marginBottom: 4 }}>
+                Risk distribution · cohort
+              </div>
+              <div style={{ fontFamily: CFONT.serif, fontSize: 22, color: CC.ink, marginBottom: 18 }}>
+                705 patients across 4 tiers
+              </div>
+              <RiskDistribution data={distribution} total={distribution.reduce((s,d) => s+d.value, 0)} />
+            </div>
+            <div style={{ background: CC.white, border: `1px solid ${CC.border}`, borderRadius: 4, padding: 22 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                <div>
+                  <div style={{ fontFamily: CFONT.sans, fontSize: 11, fontWeight: 500, letterSpacing: '0.08em', textTransform: 'uppercase', color: CC.stone, marginBottom: 4 }}>
+                    Bio-age trajectory · cohort vs sample patient
+                  </div>
+                  <div style={{ fontFamily: CFONT.serif, fontSize: 22, color: CC.ink, marginBottom: 4 }}>
+                    13 weeks · <em style={{ color: '#1F6B43' }}>−3.6 yr</em>
+                  </div>
+                </div>
+                <div style={{ display: 'flex', gap: 12, fontFamily: CFONT.sans, fontSize: 11, color: CC.stone }}>
+                  <span><span style={{ display: 'inline-block', width: 10, height: 2, background: CC.mint, marginRight: 4, verticalAlign: 'middle' }}/> Patient</span>
+                  <span><span style={{ display: 'inline-block', width: 10, height: 2, background: CC.stone, marginRight: 4, verticalAlign: 'middle' }}/> Cohort</span>
+                </div>
+              </div>
+              <TrendChart cohort={trend} w={460} h={200} />
+            </div>
+          </div>
+
+          {/* Patient table + radar */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1.7fr 1fr', gap: 16 }}>
+            <div>
+              <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 10 }}>
+                <div style={{ fontFamily: CFONT.sans, fontSize: 11, fontWeight: 500, letterSpacing: '0.08em', textTransform: 'uppercase', color: CC.stone }}>
+                  Recent patients · 6 of 705
+                </div>
+                <a href="#" style={{ fontFamily: CFONT.sans, fontSize: 12, color: CC.sage }}>View all →</a>
+              </div>
+              <PatientTable rows={patients} />
+            </div>
+            <div style={{ background: CC.white, border: `1px solid ${CC.border}`, borderRadius: 4, padding: 22 }}>
+              <div style={{ fontFamily: CFONT.sans, fontSize: 11, fontWeight: 500, letterSpacing: '0.08em', textTransform: 'uppercase', color: CC.stone, marginBottom: 4 }}>
+                Cohort biomarker profile
+              </div>
+              <div style={{ fontFamily: CFONT.serif, fontSize: 22, color: CC.ink, marginBottom: 14 }}>
+                6 health dimensions
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <RadarChart size={260} data={radar} />
+              </div>
+              <div style={{ marginTop: 14, fontFamily: CFONT.sans, fontSize: 11, color: CC.stone, lineHeight: 1.6, textAlign: 'center' }}>
+                Higher = better. Aging and ocular health are strongest;
+                neurological lags cohort average.
+              </div>
+            </div>
+          </div>
+
+          {/* footer */}
+          <div style={{ marginTop: 32, paddingTop: 18, borderTop: `1px solid ${CC.border}`, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 10 }}>
+            <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
+              <svg width="18" height="22" viewBox="0 0 24 28">
+                <path d="M2 2 H22 V18 C22 22, 17 26, 12 27 C7 26, 2 22, 2 18 Z" fill="#A51C30"/>
+                <text x="12" y="17" fontFamily="DM Serif Display, serif" fontSize="11" fill="#fff" textAnchor="middle" fontWeight="700">VE</text>
+              </svg>
+              <span style={{ fontFamily: CFONT.mono, fontSize: 10, letterSpacing: '0.04em', textTransform: 'uppercase', color: CC.ink }}>
+                Harvard Medical School Validated
+              </span>
+            </div>
+            <span style={{ fontFamily: CFONT.sans, fontSize: 11, color: CC.stone, maxWidth: 480, textAlign: 'right' }}>
+              FDA Class I General Wellness Device. Not a diagnostic tool. Clinical judgment required.
+            </span>
+          </div>
+        </main>
+      </div>
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<Dashboard />);
+</script>
+
+</body>
+</html>

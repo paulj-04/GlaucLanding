@@ -1,0 +1,234 @@
+/* =========================================================================
+   Glauc Design System — colors_and_type.css
+   Read the eye. See the future.
+   ========================================================================= */
+
+/* Web fonts.
+   Serif: Instrument Serif (brand-supplied, see fonts/) — replaces the
+   placeholder DM Serif Display the spec originally listed.
+   Sans:  DM Sans       — Google Fonts
+   Mono:  DM Mono       — Google Fonts (only 400 + 500 weights ship). */
+@font-face {
+  font-family: 'Instrument Serif';
+  src: url('fonts/InstrumentSerif-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Instrument Serif';
+  src: url('fonts/InstrumentSerif-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Hagrid';
+  src: url('fonts/Hagrid-Regular-trial.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+
+:root {
+  /* --- Primary palette ------------------------------------------------- */
+  --color-glauc-sage:    #789D7F;   /* PRIMARY brand — the logo color           */
+  --color-forest:        #1A3A2A;   /* dark surfaces, headers, primary CTAs     */
+  --color-sage:          #2D6A4F;   /* secondary green — secondary actions      */
+  --color-mint:          #52B788;   /* accent — progress, positive, highlights  */
+  --color-mist:          #D8F3DC;   /* low-risk surfaces, success tints         */
+
+  /* --- Neutral palette ------------------------------------------------- */
+  --color-ink:           #1A1A18;   /* primary text — near-black warm           */
+  --color-slate:         #4A5568;   /* secondary text / body                    */
+  --color-stone:         #718096;   /* tertiary text / metadata                 */
+  --color-border:        #E2DDD8;   /* dividers, borders                        */
+  --color-cream:         #F7F3EE;   /* primary background — warm off-white      */
+  --color-white:         #FFFFFF;   /* surfaces                                 */
+  --color-light:         #F4F5F6;   /* secondary background                     */
+
+  /* --- Semantic / risk ------------------------------------------------- */
+  --color-amber:         #C97D2E;   /* moderate / watch                         */
+  --color-amber-light:   #FDF0DF;
+  --color-red:           #C0392B;   /* elevated / urgent                        */
+  --color-red-light:     #FDF0EF;
+  --color-crimson:       #8B0000;   /* critical                                 */
+  --color-crimson-light: #FDE8E8;
+
+  /* --- Brand accents --------------------------------------------------- */
+  --color-harvard:       #A51C30;   /* ONLY Harvard validation badge            */
+
+  /* --- API-trace syntax (dark) ---------------------------------------- */
+  --color-syntax-bg:     #1A1A18;
+  --color-syntax-key:    #7EB8C9;
+  --color-syntax-string: #A8C7A0;
+  --color-syntax-number: #C99A7E;
+  --color-syntax-value:  #C9A87E;
+
+  /* --- Foreground/background semantic aliases ------------------------- */
+  --fg-1: var(--color-ink);     /* primary text                    */
+  --fg-2: var(--color-slate);   /* body                            */
+  --fg-3: var(--color-stone);   /* caption                         */
+  --fg-on-dark: var(--color-cream);
+  --bg-page: var(--color-cream);
+  --bg-surface: var(--color-white);
+  --bg-subtle: var(--color-light);
+  --bg-dark: var(--color-forest);
+
+  /* --- Typography ----------------------------------------------------- */
+  --font-serif: 'Instrument Serif', 'DM Serif Display', Georgia, serif;
+  --font-sans:  'Hagrid', 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --font-sans-body: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --font-mono:  'DM Mono', 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* type ramp — display (serif, hero numbers + statements) */
+  --type-display-1: 700 48px/1.05 var(--font-serif);
+  --type-display-2: 700 40px/1.08 var(--font-serif);
+  --type-display-3: 700 36px/1.12 var(--font-serif);
+
+  /* headings — serif */
+  --type-h1: 400 32px/1.18 var(--font-serif);
+  --type-h2: 400 28px/1.22 var(--font-serif);
+  --type-h3: 400 24px/1.28 var(--font-serif);
+  --type-h4: 400 20px/1.32 var(--font-serif);
+
+  /* body — sans */
+  --type-body-lg: 400 16px/1.55 var(--font-sans);
+  --type-body:    400 14px/1.55 var(--font-sans);
+  --type-body-sm: 400 13px/1.50 var(--font-sans);
+  --type-body-md: 500 14px/1.55 var(--font-sans);  /* medium body */
+
+  /* labels — sans medium, uppercase, tracking */
+  --type-label-lg: 500 12px/1.20 var(--font-sans);
+  --type-label:    500 11px/1.20 var(--font-sans);
+  --type-label-sm: 500 10px/1.20 var(--font-sans);
+
+  /* mono — data, code, probability */
+  --type-mono-lg: 400 14px/1.45 var(--font-mono);
+  --type-mono:    400 12px/1.45 var(--font-mono);
+  --type-mono-sm: 400 11px/1.45 var(--font-mono);
+
+  --tracking-label: 0.08em;
+  --tracking-display: -0.005em;
+
+  /* --- Spacing (base 8) ---------------------------------------------- */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+
+  /* --- Radius -------------------------------------------------------- */
+  --radius-sharp:  2px;
+  --radius-subtle: 4px;   /* default for cards, inputs, buttons */
+  --radius-rounded: 8px;
+  --radius-soft:   12px;
+  --radius-pill:   50px;
+  --radius-full:   999px;
+
+  /* --- Shadow / elevation -------------------------------------------- */
+  --shadow-0: none;
+  --shadow-1: 0px 1px 3px rgba(0,0,0,0.08);
+  --shadow-2: 0px 4px 12px rgba(0,0,0,0.10);
+  --shadow-3: 0px 8px 24px rgba(0,0,0,0.12);
+  --shadow-4: 0px 16px 48px rgba(0,0,0,0.16);
+
+  /* --- Motion -------------------------------------------------------- */
+  --duration-micro: 100ms;
+  --duration-fast:  200ms;
+  --duration-base:  300ms;
+  --duration-slow:  500ms;
+  --duration-ring:  800ms;
+  --easing-out:     cubic-bezier(0.0, 0.0, 0.2, 1);
+  --easing-in:      cubic-bezier(0.4, 0.0, 1, 1);
+  --easing-in-out:  cubic-bezier(0.4, 0.0, 0.2, 1);
+
+  /* --- Paper texture (used as background-image on cream/sage/forest) --- */
+  --texture-cream:  url('assets/texture-cream.jpg');
+  --texture-sage:   url('assets/texture-sage.jpg');
+  --texture-forest: url('assets/texture-forest.jpg');
+}
+
+/* ---------------------------------------------------------------------------
+   Element-level semantics — pre-styled so authors can just write HTML.
+   Body copy assumes cream background; for forest backgrounds set .on-dark.
+--------------------------------------------------------------------------- */
+
+html { box-sizing: border-box; }
+*, *::before, *::after { box-sizing: inherit; }
+
+body {
+  margin: 0;
+  font: var(--type-body);
+  color: var(--fg-1);
+  background: var(--bg-page);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* paper texture utility — apply alongside a base color */
+.bg-cream   { background-color: var(--color-cream);  background-image: var(--texture-cream);  background-size: cover; }
+.bg-sage-tx { background-color: #8DA08F;             background-image: var(--texture-sage);   background-size: cover; color: var(--color-cream); }
+.bg-forest-tx { background-color: var(--color-forest); background-image: var(--texture-forest); background-size: cover; color: var(--color-cream); }
+
+h1 { font: var(--type-h1); margin: 0 0 var(--space-4); letter-spacing: var(--tracking-display); color: var(--fg-1); }
+h2 { font: var(--type-h2); margin: 0 0 var(--space-3); color: var(--fg-1); }
+h3 { font: var(--type-h3); margin: 0 0 var(--space-3); color: var(--fg-1); }
+h4 { font: var(--type-h4); margin: 0 0 var(--space-2); color: var(--fg-1); }
+p  { font: var(--type-body); margin: 0 0 var(--space-3); color: var(--fg-2); text-wrap: pretty; }
+small, .caption { font: var(--type-body-sm); color: var(--fg-3); }
+
+.display-1 { font: var(--type-display-1); letter-spacing: var(--tracking-display); }
+.display-2 { font: var(--type-display-2); letter-spacing: var(--tracking-display); }
+.display-3 { font: var(--type-display-3); letter-spacing: var(--tracking-display); }
+
+.serif-italic { font-style: italic; font-family: var(--font-serif); }
+
+.label {
+  font: var(--type-label);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-label);
+  color: var(--fg-3);
+}
+
+code, .mono { font: var(--type-mono); color: var(--fg-1); }
+
+a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: opacity var(--duration-fast) var(--easing-out);
+}
+a:hover { opacity: 0.7; }
+
+/* The signature brand emphasis: italic + underline keyword */
+.emph { font-style: italic; font-family: var(--font-serif); }
+.under { text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: 4px; }
+
+/* On-dark text inversion */
+.on-dark { color: var(--color-cream); }
+.on-dark p { color: rgba(247,243,238,0.85); }
+.on-dark .label { color: rgba(247,243,238,0.6); }
+
+/* Focus ring — accessibility */
+:focus-visible {
+  outline: 2px solid var(--color-mint);
+  outline-offset: 2px;
+  border-radius: var(--radius-subtle);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<!-- @dsCard group="Components" name="Biological Age Ring" subtitle="Showpiece — 200px hero variant" viewport="700x280" -->
+<html>
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  body {
+    margin: 0; padding: 32px 36px;
+    background: var(--color-cream);
+    background-image: var(--texture-cream); background-size: cover;
+    min-height: 100vh;
+  }
+
+  .wrap {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+
+  /* ----- the ring ----------------------------------------------------- */
+  .ring { position: relative; width: 280px; height: 280px; }
+  .ring svg { display: block; width: 100%; height: 100%; }
+  .ring .center {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 10px;
+  }
+  .ring .eyebrow {
+    font: 500 9px/1 var(--font-mono);
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--color-stone);
+    margin-bottom: 2px;
+  }
+  .ring .num {
+    font-family: var(--font-serif);
+    font-size: 78px; line-height: 0.9;
+    color: var(--color-forest);
+    letter-spacing: -0.01em;
+    display: flex; align-items: baseline; gap: 2px;
+    margin: 0;
+  }
+  .ring .num .dec {
+    font-family: var(--font-serif); font-style: italic;
+    font-size: 32px;
+    color: var(--color-sage);
+    margin-left: 2px;
+  }
+  .ring .unit {
+    font: 500 10px/1 var(--font-sans-body);
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--color-stone);
+  }
+
+  /* fingerprint markings around ring */
+  .tick-label {
+    font: 500 8px/1 var(--font-mono);
+    fill: var(--color-stone);
+    letter-spacing: 0.08em;
+  }
+
+  /* ----- info column -------------------------------------------------- */
+  .info { padding: 4px 0; }
+  .info .eyebrow {
+    font: 500 10px/1 var(--font-mono);
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--color-stone);
+    margin-bottom: 10px;
+  }
+  .info h2 {
+    font-family: var(--font-serif); font-weight: 400;
+    font-size: 36px; line-height: 1.15; color: var(--color-ink);
+    margin: 0 0 4px;
+    letter-spacing: -0.005em;
+  }
+  .info h2 em { font-style: italic; color: var(--color-sage); }
+
+  .info p {
+    margin: 14px 0 0;
+    font: 400 14px/1.55 var(--font-sans-body);
+    color: var(--color-slate);
+    max-width: 360px;
+  }
+
+  /* delta chip */
+  .delta {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-top: 18px;
+    padding: 6px 12px 6px 8px;
+    background: rgba(82,183,136,0.12);
+    border: 1px solid rgba(82,183,136,0.3);
+    border-radius: 100px;
+    font: 500 12px/1 var(--font-mono);
+    letter-spacing: 0.04em;
+    color: #1F6B43;
+  }
+  .delta svg { display: block; }
+
+  /* timeline beneath */
+  .scale {
+    margin-top: 22px;
+    max-width: 360px;
+  }
+  .scale-track {
+    position: relative; height: 4px;
+    background: var(--color-border);
+    border-radius: 4px;
+  }
+  .scale-track .chrono,
+  .scale-track .bio {
+    position: absolute; top: -8px;
+    width: 2px; height: 20px;
+    transform: translateX(-50%);
+  }
+  .scale-track .chrono { background: var(--color-stone); }
+  .scale-track .bio { background: var(--color-sage); }
+  .scale-labels {
+    display: flex; justify-content: space-between;
+    margin-top: 12px;
+    font: 500 9px/1 var(--font-mono);
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--color-stone);
+  }
+  .scale-callout {
+    position: absolute;
+    transform: translateX(-50%);
+    top: -28px;
+    font: 500 9px/1 var(--font-mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-slate);
+    white-space: nowrap;
+  }
+  .scale-callout.bio { color: var(--color-sage); top: -28px; }
+
+  @keyframes ringDraw {
+    from { stroke-dashoffset: var(--circ); }
+    to   { stroke-dashoffset: var(--off); }
+  }
+  .ring-arc {
+    animation: ringDraw 1200ms cubic-bezier(0, 0, 0.2, 1) forwards;
+  }
+
+  @keyframes countUp {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .ring .num, .ring .unit, .ring .eyebrow,
+  .info .eyebrow, .info h2, .info p, .delta, .scale {
+    animation: countUp 600ms cubic-bezier(0,0,0.2,1) both;
+  }
+  .ring .num { animation-delay: 700ms; }
+  .ring .unit { animation-delay: 760ms; }
+  .ring .eyebrow { animation-delay: 640ms; }
+  .info .eyebrow { animation-delay: 200ms; }
+  .info h2 { animation-delay: 280ms; }
+  .info p { animation-delay: 360ms; }
+  .delta { animation-delay: 1100ms; }
+  .scale { animation-delay: 1180ms; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ============ RING ============ -->
+  <div class="ring">
+    <svg viewBox="-12 -12 304 304" aria-label="Biological age ring">
+      <defs>
+        <linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%"  stop-color="#52B788"/>
+          <stop offset="60%" stop-color="#3F8E68"/>
+          <stop offset="100%" stop-color="#1A3A2A"/>
+        </linearGradient>
+
+        <filter id="ringShadow" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur in="SourceAlpha" stdDeviation="2"/>
+          <feOffset dx="0" dy="1" result="off"/>
+          <feComponentTransfer><feFuncA type="linear" slope="0.35"/></feComponentTransfer>
+          <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+
+      <!-- decade tick marks -->
+      <g stroke="#C9C0B7" stroke-width="1" stroke-linecap="round">
+        <!-- 20, 30, 40, 50, 60, 70, 80, 90 → 8 ticks spanning 270deg, starting at -135deg from top -->
+        <!--   We'll place ticks every 10 yrs across the visible arc. Ring spans 90→90+(value/90 fraction). Using a 270deg track. -->
+      </g>
+
+      <!-- background track -->
+      <circle cx="140" cy="140" r="118"
+              fill="none" stroke="#E6E1DA" stroke-width="2"
+              stroke-dasharray="2 6" />
+
+      <!-- secondary chronological reference ring -->
+      <circle cx="140" cy="140" r="106"
+              fill="none" stroke="#D6D0C8" stroke-width="1"/>
+
+      <!-- chronological-age marker (a small notch on the outer track) -->
+      <!-- chrono=36 → fraction (36-20)/(90-20) = 0.2285 of full arc -->
+      <g transform="rotate(-90 140 140)">
+        <circle cx="258" cy="140" r="2.5" fill="#9A958D"
+                transform="rotate(82.3 140 140)" />
+      </g>
+
+      <!-- main bio-age arc — bio=31.2 → (31.2-20)/70 = 0.16 of arc -->
+      <!-- Using a 360-deg full ring with the arc starting at top -->
+      <circle cx="140" cy="140" r="118"
+              fill="none"
+              stroke="url(#ringGrad)"
+              stroke-width="10"
+              stroke-linecap="round"
+              transform="rotate(-90 140 140)"
+              filter="url(#ringShadow)"
+              class="ring-arc"
+              style="--circ: 741.46; --off: 619.7;"
+              stroke-dasharray="741.46"
+              stroke-dashoffset="619.7" />
+
+      <!-- "you are here" pulse dot at end of arc -->
+      <!-- The end of arc at fraction 0.164 sits at angle -90 + 0.164*360 = -90+59=-31deg. r=118, cx = 140 + 118*cos(-31°) = 140+101.1=241.1, cy = 140 + 118*sin(-31°) = 140-60.8=79.2 -->
+      <circle cx="241.1" cy="79.2" r="9" fill="#52B788" opacity="0.18">
+        <animate attributeName="r" values="9;14;9" dur="2400ms" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.18;0;0.18" dur="2400ms" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="241.1" cy="79.2" r="6" fill="#fff" stroke="#52B788" stroke-width="2"/>
+
+      <!-- decade ticks live OUTSIDE the ring so they never overlap the stroke -->
+      <g class="decade-ticks" stroke="#C9C0B7" stroke-width="1" stroke-linecap="round">
+        <line x1="140" y1="6"   x2="140" y2="12"/>
+        <line x1="274" y1="140" x2="268" y2="140"/>
+        <line x1="140" y1="274" x2="140" y2="268"/>
+        <line x1="6"   y1="140" x2="12"  y2="140"/>
+      </g>
+      <text class="tick-label" x="140" y="3"   text-anchor="middle" dominant-baseline="ideographic">20</text>
+      <text class="tick-label" x="278" y="143" text-anchor="start">40</text>
+      <text class="tick-label" x="140" y="280" text-anchor="middle" dominant-baseline="hanging" style="dominant-baseline:hanging">60</text>
+      <text class="tick-label" x="2"   y="143" text-anchor="end">80</text>
+    </svg>
+
+    <div class="center">
+      <span class="eyebrow">Biological age</span>
+      <span class="num">31<span class="dec">.2</span></span>
+      <span class="unit">years</span>
+    </div>
+  </div>
+
+  <!-- ============ INFO ============ -->
+  <div class="info">
+    <div class="eyebrow">Last scanned today · 09:21</div>
+    <h2>You're <em>4.8 years</em><br/>younger than your age.</h2>
+    <p>Cohort average tracks within ±2 years of chronological. Your trajectory has improved steadily over the last 13 weeks.</p>
+
+    <span class="delta">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 5v14M19 12l-7 7-7-7"/>
+      </svg>
+      4.8 yr vs. chronological 36
+    </span>
+
+    <div class="scale">
+      <div class="scale-track">
+        <div class="chrono" style="left: 50%;">
+          <span class="scale-callout">Chrono · 36</span>
+        </div>
+        <div class="bio" style="left: 26%;">
+          <span class="scale-callout bio">You · 31.2</span>
+        </div>
+      </div>
+      <div class="scale-labels">
+        <span>20</span><span>50</span><span>90</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

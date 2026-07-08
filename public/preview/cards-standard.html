@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<!-- @dsCard group="Components" name="Cards — Disease Risk + Standard" subtitle="Risk card with accent + content card" viewport="700x260" --><html><head><meta charset="utf-8" />
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  body { margin: 0; padding: 24px; background: var(--color-cream); background-image: var(--texture-cream); background-size: cover; }
+</style></head><body>
+<style>
+  .card { background:#fff; border:1px solid var(--color-border); border-radius: var(--radius-subtle); padding: 24px; box-shadow: var(--shadow-1); }
+  .pill { display:inline-flex; height: 22px; padding: 0 10px; border-radius: 50px; font: 500 10px/1 'DM Mono',monospace; letter-spacing: 0.08em; text-transform: uppercase; align-items:center; }
+  .pill-mod { background:#FDF0DF; color:#C97D2E; }
+  .lbl { font: var(--type-label); text-transform: uppercase; letter-spacing: 0.08em; color: var(--fg-3); }
+  .grid { display: grid; grid-template-columns: 240px 1fr; gap: 16px; align-items: stretch; }
+</style>
+<div class="grid">
+  <!-- disease risk card -->
+  <div class="card" style="position: relative; padding-left: 21px; background: rgba(201,125,46,0.06);">
+    <div style="position:absolute; top:0; bottom:0; left:0; width: 3px; background: #C97D2E;"></div>
+    <div class="lbl" style="font-size:10px;">Inflammation</div>
+    <div style="font: 400 32px/1.1 'DM Serif Display',serif; color: var(--fg-1); margin: 6px 0 10px;">0.42</div>
+    <span class="pill pill-mod">Moderate</span>
+  </div>
+  <!-- standard card -->
+  <div class="card">
+    <div style="display:flex; align-items: baseline; justify-content: space-between;">
+      <h4 style="margin:0;">Recent scan</h4>
+      <span class="lbl">May 18 · 09:21</span>
+    </div>
+    <p style="margin: 10px 0 14px; font: var(--type-body); color: var(--fg-2);">Your biological eye age was 31.2 years — <span class="emph">5 years younger</span> than your chronological age.</p>
+    <div style="display:flex; gap: 8px;">
+      <button style="background: var(--color-forest); color: #fff; border: 0; padding: 0 16px; height: 36px; border-radius: 4px; font: 500 13px 'DM Sans',sans-serif; cursor:pointer;">Open report</button>
+      <button style="background: transparent; color: var(--color-forest); border: 1.5px solid var(--color-forest); padding: 0 16px; height: 36px; border-radius: 4px; font: 500 13px 'DM Sans',sans-serif; cursor:pointer;">Share</button>
+    </div>
+  </div>
+</div>
+</body></html>

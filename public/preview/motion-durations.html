@@ -1,0 +1,56 @@
+
+<!DOCTYPE html>
+<!-- @dsCard group="Spacing" name="Motion — Durations" subtitle="100 / 200 / 300 / 500 / 800 ms" viewport="700x320" -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  body { margin: 0; padding: 24px; background: var(--color-cream); background-image: var(--texture-cream); background-size: cover; min-height: 100vh; }
+</style>
+</head>
+<body>
+
+<style>
+  @keyframes slide-demo { 0% { transform: translateX(0); } 50% { transform: translateX(220px); } 100% { transform: translateX(0); } }
+  .bar { width: 12px; height: 12px; background: var(--color-mint); border-radius: 2px; }
+  .row { display: grid; grid-template-columns: 110px 280px 1fr; align-items: center; gap: 12px; padding: 6px 0; }
+  .row + .row { border-top: 1px solid var(--color-border); }
+  .lbl { font: var(--type-label); text-transform: uppercase; letter-spacing: 0.08em; color: var(--fg-2); }
+  .meta { font: var(--type-mono-sm); color: var(--fg-3); }
+  .track { background: rgba(0,0,0,0.04); height: 12px; border-radius: 2px; position: relative; overflow: hidden; }
+  .track .bar { position: absolute; left: 0; top: 0; }
+</style>
+
+<div class="row">
+  <div class="lbl">Micro</div>
+  <div class="track"><div class="bar" style="animation: slide-demo 100ms cubic-bezier(0,0,0.2,1) infinite alternate;"></div></div>
+  <div><span class="meta">100ms · --duration-micro</span> &nbsp; <span style="font: var(--type-body-sm); color: var(--fg-2);">button press</span></div>
+</div>
+
+<div class="row">
+  <div class="lbl">Fast</div>
+  <div class="track"><div class="bar" style="animation: slide-demo 200ms cubic-bezier(0,0,0.2,1) infinite alternate;"></div></div>
+  <div><span class="meta">200ms · --duration-fast</span> &nbsp; <span style="font: var(--type-body-sm); color: var(--fg-2);">toggle, card stagger</span></div>
+</div>
+
+<div class="row">
+  <div class="lbl">Base</div>
+  <div class="track"><div class="bar" style="animation: slide-demo 300ms cubic-bezier(0,0,0.2,1) infinite alternate;"></div></div>
+  <div><span class="meta">300ms · --duration-base</span> &nbsp; <span style="font: var(--type-body-sm); color: var(--fg-2);">card expansion</span></div>
+</div>
+
+<div class="row">
+  <div class="lbl">Slow</div>
+  <div class="track"><div class="bar" style="animation: slide-demo 500ms cubic-bezier(0,0,0.2,1) infinite alternate;"></div></div>
+  <div><span class="meta">500ms · --duration-slow</span> &nbsp; <span style="font: var(--type-body-sm); color: var(--fg-2);">screen transition</span></div>
+</div>
+
+<div class="row">
+  <div class="lbl">Ring</div>
+  <div class="track"><div class="bar" style="animation: slide-demo 800ms cubic-bezier(0,0,0.2,1) infinite alternate;"></div></div>
+  <div><span class="meta">800ms · --duration-ring</span> &nbsp; <span style="font: var(--type-body-sm); color: var(--fg-2);">bio-age ring fill</span></div>
+</div>
+
+</body></html>

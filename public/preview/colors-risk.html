@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+<!-- @dsCard group="Colors" name="Colors — Risk Semantic" subtitle="Low · Moderate · Elevated · Critical" viewport="700x220" -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  body { margin: 0; padding: 24px; background: var(--color-cream); background-image: var(--texture-cream); background-size: cover; min-height: 100vh; }
+  .card-root { background: #fff; border: 1px solid var(--color-border); border-radius: var(--radius-subtle); padding: 24px; box-shadow: var(--shadow-1); }
+  .swatch-row { display: grid; gap: 12px; grid-template-columns: repeat(4, 1fr); }
+  .swatch { display: flex; flex-direction: column; gap: 4px; }
+  .swatch .chip { aspect-ratio: 1.6/1; border-radius: var(--radius-subtle); border: 1px solid rgba(0,0,0,0.05); }
+  .swatch .nm { font: var(--type-body-md); color: var(--fg-1); margin-top: 6px; }
+  .swatch .hx { font: var(--type-mono-sm); color: var(--fg-3); }
+</style>
+</head>
+<body>
+
+<div class="swatch-row">
+  <div class="swatch">
+    <div class="chip" style="background:#D8F3DC; position: relative;">
+      <span style="position:absolute;left:8px;bottom:8px;font:500 9px/1 'DM Mono',monospace;letter-spacing:0.08em;background:#52B788;color:#fff;padding:3px 8px;border-radius:50px;text-transform:uppercase;">Low</span>
+    </div>
+    <div class="nm">Low</div>
+    <div class="hx">#52B788 · #D8F3DC</div>
+  </div>
+  <div class="swatch">
+    <div class="chip" style="background:#FDF0DF; position: relative;">
+      <span style="position:absolute;left:8px;bottom:8px;font:500 9px/1 'DM Mono',monospace;letter-spacing:0.08em;background:#C97D2E;color:#fff;padding:3px 8px;border-radius:50px;text-transform:uppercase;">Mod</span>
+    </div>
+    <div class="nm">Moderate</div>
+    <div class="hx">#C97D2E · #FDF0DF</div>
+  </div>
+  <div class="swatch">
+    <div class="chip" style="background:#FDF0EF; position: relative;">
+      <span style="position:absolute;left:8px;bottom:8px;font:500 9px/1 'DM Mono',monospace;letter-spacing:0.08em;background:#C0392B;color:#fff;padding:3px 8px;border-radius:50px;text-transform:uppercase;">Elev</span>
+    </div>
+    <div class="nm">Elevated</div>
+    <div class="hx">#C0392B · #FDF0EF</div>
+  </div>
+  <div class="swatch">
+    <div class="chip" style="background:#FDE8E8; position: relative;">
+      <span style="position:absolute;left:8px;bottom:8px;font:500 9px/1 'DM Mono',monospace;letter-spacing:0.08em;background:#8B0000;color:#fff;padding:3px 8px;border-radius:50px;text-transform:uppercase;">Crit</span>
+    </div>
+    <div class="nm">Critical</div>
+    <div class="hx">#8B0000 · #FDE8E8</div>
+  </div>
+</div>
+</body></html>

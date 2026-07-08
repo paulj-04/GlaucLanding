@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<!-- @dsCard group="Components" name="Form Inputs" subtitle="Text fields · toggle · checkboxes" viewport="700x260" --><html><head><meta charset="utf-8" />
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  body { margin: 0; padding: 24px; background: var(--color-cream); background-image: var(--texture-cream); background-size: cover; }
+  label { font: var(--type-label); text-transform: uppercase; letter-spacing: 0.08em; color: var(--fg-2); display: block; margin-bottom: 6px; }
+  .field { width: 100%; height: 48px; border: 1px solid var(--color-border); border-radius: var(--radius-subtle); padding: 0 16px; font: var(--type-body); color: var(--fg-1); background: #fff; outline: none; box-sizing: border-box; }
+  /* numeric values use DM Mono to stay on-brand AND avoid the Hagrid trial's awkward number glyphs */
+  .field.num { font: 400 16px/1 var(--font-mono); letter-spacing: 0.02em; font-feature-settings: 'tnum'; }
+  .field:focus { border-color: var(--color-mint); border-width: 2px; padding: 0 15px; }
+  .field.error { border-color: var(--color-red); border-width: 2px; padding: 0 15px; }
+  .err-msg { font: var(--type-body-sm); color: var(--color-red); margin-top: 4px; }
+  .row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+
+  /* number stepper: hide native arrows, draw our own */
+  .stepper { position: relative; display: flex; align-items: stretch; }
+  .stepper .field.num { padding-right: 56px; text-align: left; }
+  .stepper input[type="number"] { -moz-appearance: textfield; }
+  .stepper input[type="number"]::-webkit-outer-spin-button,
+  .stepper input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  .stepper .ctrl { position: absolute; right: 4px; top: 4px; bottom: 4px; width: 48px; display: grid; grid-template-rows: 1fr 1fr; border-left: 1px solid var(--color-border); }
+  .stepper .ctrl button {
+    background: transparent; border: 0; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--color-slate); padding: 0;
+  }
+  .stepper .ctrl button:hover { background: rgba(0,0,0,0.04); color: var(--color-forest); }
+  .stepper .ctrl button + button { border-top: 1px solid var(--color-border); }
+
+  .toggle { width: 44px; height: 24px; border-radius: 999px; background: var(--color-stone); position: relative; cursor: pointer; transition: background var(--duration-fast); }
+  .toggle.on { background: var(--color-forest); }
+  .toggle::after { content: ''; position: absolute; width: 20px; height: 20px; background: #fff; border-radius: 50%; top: 2px; left: 2px; box-shadow: var(--shadow-2); transition: left var(--duration-fast); }
+  .toggle.on::after { left: 22px; }
+  .chk { width: 20px; height: 20px; border: 1.5px solid var(--color-stone); border-radius: 4px; display: inline-flex; align-items: center; justify-content: center; background: #fff; }
+  .chk.on { background: var(--color-forest); border-color: var(--color-forest); }
+</style>
+</head><body>
+
+<div class="row">
+  <div>
+    <label>Email</label>
+    <input class="field" placeholder="you@glauc.co" value="sarvesh@glauc.co" />
+  </div>
+  <div>
+    <label>Chronological age</label>
+    <div class="stepper">
+      <input type="number" class="field num" value="32" min="0" max="120" />
+      <div class="ctrl">
+        <button type="button" aria-label="Increase">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 15 12 9 18 15"></polyline></svg>
+        </button>
+        <button type="button" aria-label="Decrease">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div>
+    <label>Probability</label>
+    <input class="field num" value="0.847" style="border-color: var(--color-mint); border-width: 2px; padding: 0 15px;" />
+  </div>
+</div>
+
+<div style="margin-top:14px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+  <div>
+    <label>Scan ID</label>
+    <input class="field num error" value="glc_8f3" />
+    <div class="err-msg">Scan ID must be 10 characters.</div>
+  </div>
+  <div>
+    <label>Date of birth</label>
+    <input class="field num" value="1993-03-14" />
+  </div>
+</div>
+
+<div style="margin-top: 18px; display:flex; align-items:center; gap: 24px; flex-wrap: wrap;">
+  <div style="display:flex; align-items:center; gap: 10px;">
+    <div class="toggle on"></div>
+    <span style="font: var(--type-body-md);">Share with clinician</span>
+  </div>
+  <div style="display:flex; align-items:center; gap: 10px;">
+    <div class="chk on"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+    <span style="font: var(--type-body-md);">Save to history</span>
+  </div>
+  <div style="display:flex; align-items:center; gap: 10px;">
+    <div class="chk"></div>
+    <span style="font: var(--type-body); color: var(--fg-2);">Send weekly digest</span>
+  </div>
+</div>
+
+<div style="margin-top: 14px; font: var(--type-body-sm); color: var(--fg-3);">
+  Numeric inputs use <strong style="font-family: var(--font-mono); color: var(--fg-1);">DM Mono</strong> with tabular figures (<code>font-feature-settings: 'tnum'</code>) so digits stay aligned across rows.
+</div>
+
+</body></html>

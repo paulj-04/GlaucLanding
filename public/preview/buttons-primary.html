@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<!-- @dsCard group="Components" name="Buttons — Primary States" subtitle="default · hover · pressed · disabled · loading" viewport="700x130" -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  body { margin: 0; padding: 24px; background: var(--color-cream); background-image: var(--texture-cream); background-size: cover; min-height: 100vh; }
+  .row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .row + .row { margin-top: 14px; }
+  .ttl { font: var(--type-label); text-transform: uppercase; letter-spacing: 0.08em; color: var(--fg-3); margin-bottom: 8px; }
+  /* shared button styles */
+  .btn { font: 500 14px/1 'DM Sans',sans-serif; height: 44px; padding: 0 24px; border-radius: var(--radius-subtle); border: 0; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: filter var(--duration-micro) var(--easing-out), transform var(--duration-micro) var(--easing-out); }
+  .btn-primary { background: var(--color-forest); color: #fff; }
+  .btn-primary:hover { filter: brightness(0.9); }
+  .btn-primary:active { filter: brightness(0.85); transform: scale(0.98); }
+  .btn-primary:disabled { opacity: 0.4; pointer-events: none; }
+  .btn-secondary { background: var(--color-sage); color: #fff; }
+  .btn-secondary:hover { filter: brightness(0.92); }
+  .btn-outline { background: transparent; color: var(--color-forest); border: 1.5px solid var(--color-forest); }
+  .btn-outline:hover { background: rgba(26,58,42,0.06); }
+  .btn-ghost { background: transparent; color: var(--color-forest); }
+  .btn-ghost:hover { background: rgba(26,58,42,0.06); }
+  .btn-destructive { background: var(--color-red); color: #fff; }
+  .icon-btn { width: 44px; height: 44px; padding: 0; }
+  .spinner { width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.35); border-top-color: #fff; border-radius: 50%; animation: spin 800ms linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+
+<div class="ttl">Primary · forest</div>
+<div class="row">
+  <button class="btn btn-primary">Take a photo</button>
+  <button class="btn btn-primary" style="filter:brightness(0.9);">Hover</button>
+  <button class="btn btn-primary" style="filter:brightness(0.85); transform: scale(0.98);">Pressed</button>
+  <button class="btn btn-primary" disabled>Disabled</button>
+  <button class="btn btn-primary" style="width: 160px;"><span class="spinner"></span></button>
+</div>
+</body></html>

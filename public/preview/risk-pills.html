@@ -1,0 +1,27 @@
+
+<!DOCTYPE html>
+<!-- @dsCard group="Components" name="Risk Pills" subtitle="Four-tier severity badges" viewport="700x260" --><html><head><meta charset="utf-8" />
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  body { margin: 0; padding: 24px; background: var(--color-cream); background-image: var(--texture-cream); background-size: cover; }
+</style></head><body>
+<style>
+  .pill { display: inline-flex; align-items: center; height: 22px; padding: 0 10px; border-radius: 50px; font: 500 10px/1 'DM Mono',monospace; letter-spacing: 0.08em; text-transform: uppercase; }
+  .pill-low  { background: #D8F3DC; color: #1F6B43; }
+  .pill-mod  { background: #FDF0DF; color: #C97D2E; }
+  .pill-elev { background: #FDF0EF; color: #C0392B; }
+  .pill-crit { background: #FDE8E8; color: #8B0000; }
+  .grid { display:grid; grid-template-columns: 1fr 1fr; gap: 18px 32px; align-items: center; }
+  .ttl { font: var(--type-label); text-transform: uppercase; letter-spacing: 0.08em; color: var(--fg-3); }
+</style>
+<div class="grid">
+  <div><span class="pill pill-low">Optimal</span> &nbsp; <span class="pill pill-low">Low</span></div>
+  <div class="ttl">P &lt; 0.05 — desired range</div>
+  <div><span class="pill pill-mod">Moderate</span> &nbsp; <span class="pill pill-mod">Watch</span></div>
+  <div class="ttl">P 0.05 – 0.30 — monitor</div>
+  <div><span class="pill pill-elev">Elevated</span> &nbsp; <span class="pill pill-elev">Flag</span></div>
+  <div class="ttl">P 0.30 – 0.70 — clinician review</div>
+  <div><span class="pill pill-crit">Critical</span> &nbsp; <span class="pill pill-crit">Urgent</span></div>
+  <div class="ttl">P &gt; 0.70 — immediate attention</div>
+</div>
+</body></html>
