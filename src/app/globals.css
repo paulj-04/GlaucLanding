@@ -69,6 +69,35 @@ a {
   text-decoration: none;
 }
 
+input,
+select,
+textarea {
+  width: 100%;
+  border: 1px solid var(--color-border);
+  background: var(--color-white);
+  color: var(--color-ink);
+  border-radius: var(--radius-subtle);
+  padding: 13px 13px;
+  outline: none;
+  transition: border-color 180ms ease, box-shadow 180ms ease;
+}
+
+textarea {
+  resize: vertical;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--color-glauc-sage);
+  box-shadow: 0 0 0 3px rgba(120, 157, 127, 0.18);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--color-stone);
+}
+
 button,
 input,
 textarea,
@@ -154,12 +183,81 @@ select {
   }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1100px) {
   .section-inner > div {
     grid-template-columns: 1fr !important;
   }
 
+  .section-inner [style*="grid-template-columns: repeat(4"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  .section-inner [style*="grid-template-columns: repeat(3"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  .section-inner [style*="grid-template-columns: repeat(2"] {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 760px) {
+  .section {
+    padding: 72px 22px;
+  }
+
+  nav {
+    padding: 0 22px !important;
+  }
+
   nav > div:last-child {
     display: none !important;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  .primary-button,
+  .secondary-button {
+    display: inline-flex;
+    justify-content: center;
+    text-align: center;
+  }
+
+  form [style*="grid-template-columns: 1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  footer {
+    padding: 48px 22px !important;
+  }
+}
+
+@media (max-width: 520px) {
+  .section {
+    padding: 64px 18px;
+  }
+
+  .section-inner {
+    width: 100%;
+  }
+
+  .card {
+    padding: 18px !important;
+  }
+
+  [style*="min-height: 560px"] {
+    min-height: 420px !important;
+  }
+
+  [style*="min-height: 520px"] {
+    min-height: 420px !important;
+  }
+
+  [style*="font-size: 118px"] {
+    font-size: 72px !important;
   }
 }
