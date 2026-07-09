@@ -153,3 +153,13 @@ select {
     padding: 72px 24px;
   }
 }
+
+@media (max-width: 900px) {
+  .section-inner > div {
+    grid-template-columns: 1fr !important;
+  }
+
+  nav > div:last-child {
+    display: none !important;
+  }
+}
