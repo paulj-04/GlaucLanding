@@ -1,228 +1,363 @@
-const founders = [
-  {
-    name: "Sarvesh Ramakrishnan",
-    role: "Founder & CEO",
-    detail:
-      "Leading Glauc’s mission to make biological eye intelligence more accessible through smartphone-based AI.",
-  },
-  {
-    name: "Aaryan Thavaran",
-    role: "Co-founder & COO",
-    detail:
-      "Supporting product, operations, and go-to-market execution across Glauc’s early platform strategy.",
-  },
+"use client";
+
+import { useState } from "react";
+
+const roles = [
+  "Patient / consumer",
+  "Clinician",
+  "Researcher",
+  "Investor",
+  "Partner",
+  "Other",
 ];
 
-const advisors = [
-  {
-    name: "Mohammad Eslami, PhD",
-    role: "Scientific advisor",
-  },
-  {
-    name: "Michael J. Morley, MD",
-    role: "Clinical advisor",
-  },
-  {
-    name: "Chris Wright, PhD",
-    role: "Research advisor",
-  },
-];
+type FormStatus = "idle" | "loading" | "success" | "error";
 
-export default function Team() {
+export default function WaitlistForm() {
+  const [status, setStatus] = useState<FormStatus>("idle");
+  const [message, setMessage] = useState("");
+
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setStatus("loading");
+    setMessage("");
+
+    const formData = new FormData(event.currentTarget);
+
+    const payload = {
+      name: String(formData.get("name") || ""),
+      email: String(formData.get("email") || ""),
+      role: String(formData.get("role") || ""),
+      organization: String(formData.get("organization") || ""),
+      reason: String(formData.get("reason") || ""),
+      consent: formData.get("consent") === "on",
+      marketingOptIn: formData.get("marketingOptIn") === "on",
+    };
+
+    try {
+      const response = await fetch("/api/waitlist", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        setStatus("error");
+        setMessage(result.message || "Something went wrong.");
+        return;
+      }
+
+      setStatus("success");
+      setMessage(result.message || "You are on the waitlist.");
+      event.currentTarget.reset();
+    } catch {
+      setStatus("error");
+      setMessage("Network error. Please try again.");
+    }
+  }
+
   return (
-    <section id="team" className="section">
+    <section
+      id="waitlist"
+      className="section"
+      style={{
+        background: "var(--color-forest)",
+        backgroundImage: 'url("/assets/texture-forest.jpg")',
+        backgroundSize: "cover",
+        color: "var(--color-cream)",
+      }}
+    >
       <div className="section-inner">
-        <div className="label">Team</div>
-
         <div
           style={{
             display: "grid",
             gridTemplateColumns: "0.9fr 1.1fr",
             gap: 56,
-            marginTop: 18,
             alignItems: "start",
           }}
         >
           <div>
+            <div
+              className="label"
+              style={{ color: "rgba(247,243,238,0.6)" }}
+            >
+              Join waitlist
+            </div>
+
             <h2
               className="serif"
               style={{
-                fontSize: "clamp(44px, 5vw, 72px)",
+                fontSize: "clamp(44px, 5vw, 76px)",
                 lineHeight: 0.98,
-                margin: 0,
-                color: "var(--color-forest)",
+                margin: "18px 0 0",
+                color: "var(--color-cream)",
                 letterSpacing: "-0.015em",
               }}
             >
-              Scientific depth.
-              <br />
-              Human <span className="emph">urgency</span>.
+              Follow the future before it comes into{" "}
+              <span className="emph">focus</span>.
             </h2>
 
             <p
               style={{
                 marginTop: 24,
-                color: "var(--color-slate)",
+                color: "rgba(247,243,238,0.78)",
                 fontSize: 17,
                 lineHeight: 1.7,
                 maxWidth: 560,
               }}
             >
-              Glauc is shaped by a founding team and advisory network across
-              AI, medicine, research, and product execution.
+              Join the Glauc waitlist for early updates, partnership
+              opportunities, and future access announcements.
+            </p>
+
+            <p
+              style={{
+                marginTop: 18,
+                color: "rgba(247,243,238,0.52)",
+                fontSize: 12,
+                lineHeight: 1.55,
+                maxWidth: 560,
+              }}
+            >
+              Please do not submit medical information through this form. Glauc
+              will never ask for eye photos or health records through the public
+              landing page.
             </p>
           </div>
 
-          <div style={{ display: "grid", gap: 18 }}>
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(2, 1fr)",
-                gap: 14,
-              }}
-            >
-              {founders.map((person) => (
-                <article
-                  key={person.name}
-                  className="card"
+          <div
+            style={{
+              background: "var(--color-cream)",
+              color: "var(--color-ink)",
+              border: "1px solid rgba(247,243,238,0.18)",
+              borderRadius: 4,
+              padding: 28,
+              boxShadow: "0 16px 48px rgba(0,0,0,0.18)",
+            }}
+          >
+            {status === "success" ? (
+              <div style={{ padding: "24px 0" }}>
+                <div className="label">Received</div>
+                <h3
+                  className="serif"
                   style={{
-                    padding: 24,
-                    minHeight: 240,
-                    background: "rgba(255,255,255,0.76)",
+                    fontSize: 44,
+                    lineHeight: 1,
+                    color: "var(--color-forest)",
+                    margin: "14px 0 0",
                   }}
                 >
-                  <div
-                    style={{
-                      width: 56,
-                      height: 56,
-                      borderRadius: 999,
-                      background: "var(--color-forest)",
-                      color: "var(--color-cream)",
-                      display: "grid",
-                      placeItems: "center",
-                      fontFamily: "var(--font-serif)",
-                      fontSize: 24,
-                      marginBottom: 22,
-                    }}
-                  >
-                    {person.name
-                      .split(" ")
-                      .map((part) => part[0])
-                      .slice(0, 2)
-                      .join("")}
-                  </div>
-
+                  You’re on the list.
+                </h3>
+                <p
+                  style={{
+                    marginTop: 16,
+                    color: "var(--color-slate)",
+                    lineHeight: 1.65,
+                  }}
+                >
+                  {message}
+                </p>
+                <button
+                  className="secondary-button"
+                  style={{ marginTop: 18 }}
+                  onClick={() => {
+                    setStatus("idle");
+                    setMessage("");
+                  }}
+                >
+                  Submit another response
+                </button>
+              </div>
+            ) : (
+              <form
+                onSubmit={handleSubmit}
+                style={{
+                  display: "grid",
+                  gap: 16,
+                }}
+              >
+                <div>
+                  <div className="label">Waitlist form</div>
                   <h3
                     className="serif"
                     style={{
-                      fontSize: 30,
-                      lineHeight: 1.08,
-                      margin: 0,
+                      fontSize: 40,
+                      lineHeight: 1.05,
+                      margin: "10px 0 4px",
                       color: "var(--color-forest)",
                     }}
                   >
-                    {person.name}
+                    Stay close to Glauc.
                   </h3>
-
-                  <div
-                    className="label"
-                    style={{
-                      marginTop: 10,
-                      color: "var(--color-glauc-sage)",
-                    }}
-                  >
-                    {person.role}
-                  </div>
-
                   <p
                     style={{
-                      margin: "18px 0 0",
-                      color: "var(--color-slate)",
-                      fontSize: 14,
-                      lineHeight: 1.6,
+                      margin: 0,
+                      color: "var(--color-stone)",
+                      fontSize: 13,
+                      lineHeight: 1.5,
                     }}
                   >
-                    {person.detail}
+                    Fields marked with * are required.
                   </p>
-                </article>
-              ))}
-            </div>
+                </div>
 
-            <div
-              className="card"
-              style={{
-                padding: 24,
-                background: "var(--color-forest)",
-                backgroundImage: 'url("/assets/texture-forest.jpg")',
-                backgroundSize: "cover",
-                color: "var(--color-cream)",
-              }}
-            >
-              <div
-                className="label"
-                style={{ color: "rgba(247,243,238,0.58)" }}
-              >
-                Advisors
-              </div>
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "1fr 1fr",
+                    gap: 12,
+                  }}
+                >
+                  <Field label="Full name *">
+                    <input required name="name" placeholder="Your name" />
+                  </Field>
 
-              <div
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "repeat(3, 1fr)",
-                  gap: 12,
-                  marginTop: 18,
-                }}
-              >
-                {advisors.map((advisor) => (
+                  <Field label="Email *">
+                    <input
+                      required
+                      type="email"
+                      name="email"
+                      placeholder="you@example.com"
+                    />
+                  </Field>
+                </div>
+
+                <Field label="I am a... *">
+                  <select required name="role" defaultValue="">
+                    <option value="" disabled>
+                      Select one
+                    </option>
+                    {roles.map((role) => (
+                      <option key={role} value={role}>
+                        {role}
+                      </option>
+                    ))}
+                  </select>
+                </Field>
+
+                <Field label="Organization">
+                  <input
+                    name="organization"
+                    placeholder="Company, clinic, school, or fund"
+                  />
+                </Field>
+
+                <Field label="Why are you interested?">
+                  <textarea
+                    name="reason"
+                    rows={4}
+                    placeholder="Tell us what brought you here."
+                  />
+                </Field>
+
+                <label
+                  style={{
+                    display: "flex",
+                    alignItems: "flex-start",
+                    gap: 10,
+                    fontSize: 12,
+                    lineHeight: 1.5,
+                    color: "var(--color-slate)",
+                  }}
+                >
+                  <input
+                    required
+                    name="consent"
+                    type="checkbox"
+                    style={{ marginTop: 3, width: "auto" }}
+                  />
+                  <span>
+                    I agree to be contacted by Glauc about updates,
+                    partnerships, or future access. I understand this form is
+                    not for medical advice.
+                  </span>
+                </label>
+
+                <label
+                  style={{
+                    display: "flex",
+                    alignItems: "flex-start",
+                    gap: 10,
+                    fontSize: 12,
+                    lineHeight: 1.5,
+                    color: "var(--color-stone)",
+                  }}
+                >
+                  <input
+                    name="marketingOptIn"
+                    type="checkbox"
+                    style={{ marginTop: 3, width: "auto" }}
+                  />
+                  <span>Send me occasional product and research updates.</span>
+                </label>
+
+                {status === "error" && (
                   <div
-                    key={advisor.name}
                     style={{
-                      border: "1px solid rgba(247,243,238,0.16)",
-                      background: "rgba(247,243,238,0.06)",
-                      padding: 18,
+                      border: "1px solid #C0392B",
+                      background: "#FDF0EF",
+                      color: "#8B1E16",
                       borderRadius: 4,
+                      padding: 12,
+                      fontSize: 13,
+                      lineHeight: 1.5,
                     }}
                   >
-                    <h4
-                      className="serif"
-                      style={{
-                        margin: 0,
-                        color: "var(--color-cream)",
-                        fontSize: 24,
-                        lineHeight: 1.12,
-                      }}
-                    >
-                      {advisor.name}
-                    </h4>
-                    <p
-                      style={{
-                        margin: "10px 0 0",
-                        color: "rgba(247,243,238,0.68)",
-                        fontSize: 13,
-                        lineHeight: 1.5,
-                      }}
-                    >
-                      {advisor.role}
-                    </p>
+                    {message}
                   </div>
-                ))}
-              </div>
+                )}
 
-              <p
-                style={{
-                  margin: "18px 0 0",
-                  color: "rgba(247,243,238,0.62)",
-                  fontSize: 12,
-                  lineHeight: 1.55,
-                }}
-              >
-                Advisor names and affiliations should be reviewed before public
-                launch to ensure correct titles, permissions, and attribution.
-              </p>
-            </div>
+                <button
+                  className="primary-button"
+                  type="submit"
+                  disabled={status === "loading"}
+                  style={{
+                    opacity: status === "loading" ? 0.72 : 1,
+                    cursor: status === "loading" ? "not-allowed" : "pointer",
+                  }}
+                >
+                  {status === "loading" ? "Joining..." : "Join waitlist"}
+                </button>
+
+                <p
+                  style={{
+                    margin: 0,
+                    fontSize: 11,
+                    lineHeight: 1.5,
+                    color: "var(--color-stone)",
+                  }}
+                >
+                  Your submission is stored securely for Glauc follow-up. Please
+                  do not include medical information.
+                </p>
+              </form>
+            )}
           </div>
         </div>
       </div>
     </section>
+  );
+}
+
+function Field({
+  label,
+  children,
+}: {
+  label: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <label style={{ display: "grid", gap: 7 }}>
+      <span className="label" style={{ fontSize: 10 }}>
+        {label}
+      </span>
+      {children}
+    </label>
   );
 }
