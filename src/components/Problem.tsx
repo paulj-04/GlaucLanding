@@ -47,7 +47,7 @@ export default function Problem() {
             >
               Many health changes begin quietly before they become obvious.
               Traditional screening can be expensive, delayed, or hard to
-              access. Glauc explores the eye as a visible biological signal —
+              access. Glauc explores the eye as a visible biological signal,
               making early wellness monitoring easier to reach from the device
               already in your hand.
             </p>

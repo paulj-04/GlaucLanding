@@ -75,7 +75,7 @@ export default function FounderStory() {
 
               <p style={{ margin: 0 }}>
                 The eye offers a uniquely visible window into biological
-                patterns. Glauc brings that window closer — using the smartphone
+                patterns. Glauc brings that window closer, using the smartphone
                 camera people already carry and AI designed to translate ocular
                 signals into understandable wellness insight.
               </p>

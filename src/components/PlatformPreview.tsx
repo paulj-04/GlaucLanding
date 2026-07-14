@@ -395,7 +395,7 @@ export default function PlatformPreview() {
                 }}
               >
                 Dashboard shown for product visualization. Results are intended
-                to support — not replace — professional judgment.
+                to support-not replace-professional judgment.
               </p>
             </div>
           </div>

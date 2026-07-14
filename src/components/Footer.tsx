@@ -28,7 +28,7 @@ export default function Footer() {
               />
               <span
                 className="serif"
-                style={{ fontSize: 28, color: "var(--color-forest)" }}
+                style={{ fontFamily: "Hagrid", fontSize: 28, color: "var(--color-forest)" }}
               >
                 Glauc
               </span>
@@ -56,8 +56,8 @@ export default function Footer() {
               }}
             >
               FDA Class I General Wellness Device. Not a diagnostic tool.
-              Clinical judgment required. Glauc results are intended to support
-              — not replace — professional medical advice.
+              Clinical judgment required. Glauc results are intended to
+              support, not replace, professional medical advice.
             </p>
           </div>
 

@@ -33,7 +33,7 @@ export default function Navbar() {
           />
           <span
             className="serif"
-            style={{ fontSize: 28, color: "var(--color-forest)" }}
+            style={{ fontFamily: "Hagrid", fontSize: 28, color: "var(--color-forest)" }}
           >
             Glauc
           </span>
