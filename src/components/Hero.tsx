@@ -103,7 +103,7 @@ export default function Hero() {
           className="card"
           style={{
             position: "relative",
-            minHeight: 560,
+            minHeight: 520,
             padding: 28,
             background:
               "linear-gradient(180deg, #ffffff 0%, rgba(255,255,255,0.78) 100%)",
@@ -124,7 +124,7 @@ export default function Hero() {
               gridTemplateColumns: "1fr 0.9fr",
               gap: 24,
               height: "100%",
-              minHeight: 504,
+              minHeight: 464,
               alignItems: "stretch",
             }}
           >

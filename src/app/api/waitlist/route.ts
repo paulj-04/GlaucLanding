@@ -55,11 +55,14 @@ export async function POST(request: Request) {
 
       return NextResponse.json(
         {
-          ok: false,
-          message: "Could not save submission. Please try again.",
+            ok: false,
+            message: error.message || "Could not save submission. Please try again.",
+            code: error.code,
+            details: error.details,
+            hint: error.hint,
         },
-        { status: 500 }
-      );
+    { status: 500 }
+);
     }
 
     return NextResponse.json({

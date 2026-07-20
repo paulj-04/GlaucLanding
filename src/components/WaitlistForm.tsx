@@ -18,47 +18,59 @@ export default function WaitlistForm() {
   const [message, setMessage] = useState("");
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setStatus("loading");
-    setMessage("");
+  event.preventDefault();
 
-    const formData = new FormData(event.currentTarget);
+  const form = event.currentTarget;
+  const formData = new FormData(form);
 
-    const payload = {
-      name: String(formData.get("name") || ""),
-      email: String(formData.get("email") || ""),
-      role: String(formData.get("role") || ""),
-      organization: String(formData.get("organization") || ""),
-      reason: String(formData.get("reason") || ""),
-      consent: formData.get("consent") === "on",
-      marketingOptIn: formData.get("marketingOptIn") === "on",
-    };
+  setStatus("loading");
+  setMessage("");
+
+  const payload = {
+    name: String(formData.get("name") || ""),
+    email: String(formData.get("email") || ""),
+    role: String(formData.get("role") || ""),
+    organization: String(formData.get("organization") || ""),
+    reason: String(formData.get("reason") || ""),
+    consent: formData.get("consent") === "on",
+    marketingOptIn: formData.get("marketingOptIn") === "on",
+  };
+
+  try {
+    const response = await fetch("/api/waitlist", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+
+    const text = await response.text();
+
+    let result: { ok?: boolean; message?: string } = {};
 
     try {
-      const response = await fetch("/api/waitlist", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
-
-      const result = await response.json();
-
-      if (!response.ok) {
-        setStatus("error");
-        setMessage(result.message || "Something went wrong.");
-        return;
-      }
-
-      setStatus("success");
-      setMessage(result.message || "You are on the waitlist.");
-      event.currentTarget.reset();
+      result = text ? JSON.parse(text) : {};
     } catch {
-      setStatus("error");
-      setMessage("Network error. Please try again.");
+      console.error("Non-JSON API response:", text);
+      throw new Error("The server returned an unexpected response.");
     }
+
+    if (!response.ok) {
+      setStatus("error");
+      setMessage(result.message || "Something went wrong.");
+      return;
+    }
+
+    form.reset();
+    setStatus("success");
+    setMessage(result.message || "You are on the waitlist.");
+  } catch (error) {
+    console.error("Waitlist submit error:", error);
+    setStatus("error");
+    setMessage("Network error. Please try again.");
   }
+}
 
   return (
     <section
