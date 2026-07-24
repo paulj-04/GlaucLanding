@@ -1,9 +1,31 @@
 import { NextResponse } from "next/server";
 import { waitlistSchema } from "@/lib/validation";
 import { supabaseAdmin } from "@/lib/supabaseAdmin";
+import { rateLimit } from "@/lib/rateLimit";
 
 export async function POST(request: Request) {
   try {
+
+    const forwardedFor = request.headers.get("x-forwarded-for");
+    const ipAddress = forwardedFor?.split(",")[0]?.trim() ?? "unknown";
+
+    const limiter = rateLimit({
+      key: `waitlist:${ipAddress}`,
+      limit: 5,
+      windowMs: 60 * 60 * 1000,
+    });
+
+    if (!limiter.success) {
+      return NextResponse.json(
+        {
+          ok: false,
+          message:
+            "Too many submissions from this connection. Please try again later.",
+        },
+        { status: 429 }
+      );
+    }
+
     const body = await request.json();
 
     const parsed = waitlistSchema.safeParse(body);
@@ -21,8 +43,6 @@ export async function POST(request: Request) {
 
     const data = parsed.data;
 
-    const forwardedFor = request.headers.get("x-forwarded-for");
-    const ipAddress = forwardedFor?.split(",")[0]?.trim() ?? null;
     const userAgent = request.headers.get("user-agent");
 
     const { error } = await supabaseAdmin
