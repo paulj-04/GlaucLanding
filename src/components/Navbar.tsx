@@ -52,6 +52,7 @@ export default function Navbar() {
           <a href="#platform">Platform</a>
           <a href="#story">Story</a>
           <a href="#team">Team</a>
+          <a href="#contact">Contact</a>
           <a href="#waitlist" className="primary-button">
             Join waitlist
           </a>

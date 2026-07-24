@@ -6,6 +6,7 @@ import PlatformPreview from "@/components/PlatformPreview";
 import FounderStory from "@/components/FounderStory";
 import Team from "@/components/Team";
 import WaitlistForm from "@/components/WaitlistForm";
+import ContactForm from "@/components/ContactForm";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -19,6 +20,7 @@ export default function Home() {
       <FounderStory />
       <Team />
       <WaitlistForm />
+      <ContactForm />
       <Footer />
     </main>
   );

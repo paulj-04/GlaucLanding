@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { waitlistSchema } from "@/lib/validation";
 import { supabaseAdmin } from "@/lib/supabaseAdmin";
 import { rateLimit } from "@/lib/rateLimit";
+import { sendWaitlistNotification } from "@/lib/email";
 
 export async function POST(request: Request) {
   try {
@@ -72,6 +73,19 @@ export async function POST(request: Request) {
       }
 
       console.error("Supabase waitlist insert error:", error);
+
+      try {
+        await sendWaitlistNotification({
+          name: data.name,
+          email: data.email.toLowerCase(),
+          role: data.role,
+          organization: data.organization || null,
+          reason: data.reason || null,
+          marketingOptIn: data.marketingOptIn ?? false,
+        });
+      } catch (emailError) {
+      console.error("Waitlist notification email error:", emailError);
+      }
 
       return NextResponse.json(
         {
