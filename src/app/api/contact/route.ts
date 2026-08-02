@@ -3,6 +3,7 @@ import { contactSchema } from "@/lib/validation";
 import { supabaseAdmin } from "@/lib/supabaseAdmin";
 import { rateLimit } from "@/lib/rateLimit";
 import { sendContactNotification } from "@/lib/email";
+import { verifyTurnstileToken } from "@/lib/turnstile";
 
 export async function POST(request: Request) {
   try {
@@ -41,6 +42,19 @@ export async function POST(request: Request) {
     }
 
     const data = parsed.data;
+
+    const turnstile = await verifyTurnstileToken(data.turnstileToken || null);
+
+    if (!turnstile.success) {
+      return NextResponse.json(
+        {
+          ok: false,
+          message: "Bot verification failed. Please refresh and try again.",
+        },
+        { status: 400 }
+      );
+    }
+
     const userAgent = request.headers.get("user-agent");
 
     const { error } = await supabaseAdmin.from("contact_messages").insert({
@@ -62,7 +76,10 @@ export async function POST(request: Request) {
       return NextResponse.json(
         {
           ok: false,
-          message: "Could not save message. Please try again.",
+          message: error.message || "Could not save message. Please try again.",
+          code: error.code,
+          details: error.details,
+          hint: error.hint,
         },
         { status: 500 }
       );

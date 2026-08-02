@@ -34,6 +34,7 @@ export default function WaitlistForm() {
     reason: String(formData.get("reason") || ""),
     consent: formData.get("consent") === "on",
     marketingOptIn: formData.get("marketingOptIn") === "on",
+    turnstileToken: String(formData.get("cf-turnstile-response") || ""),
   };
 
   try {
@@ -324,7 +325,12 @@ export default function WaitlistForm() {
                     {message}
                   </div>
                 )}
-
+                {process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY && (
+                  <div
+                    className="cf-turnstile"
+                    data-sitekey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY}
+                  />
+                )}
                 <button
                   className="primary-button"
                   type="submit"

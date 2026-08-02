@@ -3,6 +3,7 @@ import { waitlistSchema } from "@/lib/validation";
 import { supabaseAdmin } from "@/lib/supabaseAdmin";
 import { rateLimit } from "@/lib/rateLimit";
 import { sendWaitlistNotification } from "@/lib/email";
+import { verifyTurnstileToken } from "@/lib/turnstile";
 
 export async function POST(request: Request) {
   try {
@@ -43,6 +44,18 @@ export async function POST(request: Request) {
     }
 
     const data = parsed.data;
+
+        const turnstile = await verifyTurnstileToken(data.turnstileToken || null);
+
+    if (!turnstile.success) {
+      return NextResponse.json(
+        {
+          ok: false,
+          message: "Bot verification failed. Please refresh and try again.",
+        },
+        { status: 400 }
+      );
+    }
 
     const userAgent = request.headers.get("user-agent");
 

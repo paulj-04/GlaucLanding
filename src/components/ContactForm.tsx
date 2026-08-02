@@ -33,6 +33,7 @@ export default function ContactForm() {
       interestType: String(formData.get("interestType") || ""),
       message: String(formData.get("message") || ""),
       consent: formData.get("consent") === "on",
+      turnstileToken: String(formData.get("cf-turnstile-response") || ""),
     };
 
     try {
@@ -242,7 +243,12 @@ export default function ContactForm() {
                   {message}
                 </div>
               )}
-
+              {process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY && (
+                <div
+                  className="cf-turnstile"
+                  data-sitekey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY}
+                />
+              )}
               <button
                 className="primary-button"
                 type="submit"

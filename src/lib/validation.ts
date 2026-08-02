@@ -32,6 +32,7 @@ export const waitlistSchema = z.object({
     message: "Consent is required.",
   }),
   marketingOptIn: z.boolean().optional().default(false),
+  turnstileToken: z.string().optional().or(z.literal("")),
 });
 
 export const contactSchema = z.object({
@@ -64,40 +65,8 @@ export const contactSchema = z.object({
   consent: z.boolean().refine((value) => value === true, {
     message: "Consent is required.",
   }),
+  turnstileToken: z.string().optional().or(z.literal("")),
 });
 
 export type ContactInput = z.infer<typeof contactSchema>;
-
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
-  async headers() {
-    return [
-      {
-        source: "/(.*)",
-        headers: [
-          {
-            key: "X-Frame-Options",
-            value: "DENY",
-          },
-          {
-            key: "X-Content-Type-Options",
-            value: "nosniff",
-          },
-          {
-            key: "Referrer-Policy",
-            value: "strict-origin-when-cross-origin",
-          },
-          {
-            key: "Permissions-Policy",
-            value: "camera=(), microphone=(), geolocation=()",
-          },
-        ],
-      },
-    ];
-  },
-};
-
-export default nextConfig;
-
 export type WaitlistInput = z.infer<typeof waitlistSchema>;
